@@ -2,6 +2,12 @@ const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
 const cool = require('cool-ascii-faces');
+const {Pool} = require('pg');
+
+let pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
+});
 
 let timesHandler = (req,res) => {
   let result = '';
@@ -11,6 +17,19 @@ let timesHandler = (req,res) => {
   }
 
   res.send(result);
+}
+
+let dbHandler = async(req, res) =>{
+  try{
+    const client = await pool.connect();
+    const result = await client.query('select * from test_table');
+    res.render('pages/db', result);
+    client.release();
+
+  } catch(error){
+    console.error(error);
+    res.send(`Error: ${error}`);
+  }
 }
 
 const myName = process.env.name || 'default';
@@ -24,6 +43,7 @@ express()
   .get('/cool', (req,res)=>res.send(cool()))
   .get('/roni', (req, res)=> res.send("hi roni, name parameter is " + myName))
   .get('/times',timesHandler)
+  .get('/db', dbHandler)
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
   
