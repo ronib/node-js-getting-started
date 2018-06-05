@@ -20,6 +20,34 @@ let timesHandler = (req,res) => {
 }
 
 let dbHandler = async(req, res) =>{
+
+  let mock =  { 
+       command: 'SELECT', 
+       rowCount: 2, 
+       oid: null, 
+       rows: [ { id: 1, name: 'hello db' }, { id: 2, name: 'roni' } ], 
+       fields:  
+        [ { 
+            name: 'id', 
+            tableID: 5819032, 
+            columnID: 1, 
+            dataTypeID: 23, 
+            dataTypeSize: 4, 
+            dataTypeModifier: -1, 
+            format: 'text' }, 
+         { 
+            name: 'name', 
+            tableID: 5819032, 
+            columnID: 2, 
+            dataTypeID: 25, 
+            dataTypeSize: -1, 
+            dataTypeModifier: -1, 
+            format: 'text' } ], 
+       _parsers: [ ], 
+       RowCtor: null, 
+       rowAsArray: false 
+      };
+
   try{
      const client = await pool.connect();
      const results = await client.query('SELECT * FROM test_table');
