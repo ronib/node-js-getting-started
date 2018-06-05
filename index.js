@@ -24,6 +24,7 @@ let dbHandler = async(req, res) =>{
      const client = await pool.connect();
      const result = await client.query('SELECT * FROM test_table');
      console.log("result is ", result);
+     console.log("db url", process.env.DATABASE_URL);
      res.render('pages/db', result);
      client.release();
   
