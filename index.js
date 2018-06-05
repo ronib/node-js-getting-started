@@ -22,10 +22,10 @@ let timesHandler = (req,res) => {
 let dbHandler = async(req, res) =>{
   try{
      const client = await pool.connect();
-     const result = await client.query('SELECT * FROM test_table');
-     console.log("result is ", result);
+     const results = await client.query('SELECT * FROM test_table');
+     console.log("result is ", results);
      console.log("db url", process.env.DATABASE_URL);
-     res.render('pages/db', result);
+     res.render('pages/db', results);
      client.release();
   
 
