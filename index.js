@@ -20,16 +20,17 @@ let timesHandler = (req,res) => {
 }
 
 let dbHandler = async(req, res) =>{
-  try{
-    const client = await pool.connect();
-    const result = await client.query('select * from test_table');
-    res.render('pages/db', result);
-    client.release();
+  // try{
+  //   const client = await pool.connect();
+  //   const result = await client.query('select * from test_table');
+  //   res.render('pages/db', result);
+  //   client.release();
 
-  } catch(error){
-    console.error(error);
-    res.send(`Error: ${error}`);
-  }
+  // } catch(error){
+  //   console.error(error);
+  //   res.send(`Error: ${error}`);
+  // }
+  res.send("db check");
 }
 
 const myName = process.env.name || 'default';
